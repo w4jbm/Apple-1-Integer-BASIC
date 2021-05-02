@@ -111,6 +111,8 @@ For the starting place of my analysis, thanks to Eric Smith and to Jeff Tranter.
 
 I have also made use of a disassembly of Apple 2 Integer BASIC by Paul R. Santa-Maria. He further credits William Luebbert's "What's Where in the Apple" and Peeking at Call-A.P.P.L.E., Vol 2, 1979 (pp44-61).
 
+In working on this, I have also made use of the Apple 1js emulator at https://www.scullinsteel.com/apple1/
+
 
 ## The fine print...
 
