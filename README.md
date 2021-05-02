@@ -75,6 +75,34 @@ If we delete line 35 (the print statement) and run it again, we can see that the
 So there the value -32,768 was not excluded on a whim. The limit of -32,767 is the result of how the unary negation operator interacts with the magnitude of the number in certain situations.
 
 
+## Error Messages
+
+| Pointer | Message |
+|:-----:|:--------:
+| 00 | ">32767" |
+| 06 | "TOO LONG" |
+| 0E | "SYNTAX" |
+| 14 | "MEM FULL" |
+| 1C | "TOO MANY PARENS" |
+| 2B | "STRING" |
+| 31 | "NO END" |
+| 37 | "BAD BRANCH" |
+| 41 | ">8 GOSUBS" |
+| 4A | "BAD RETURN" |
+| 54 | ">8 FORS" |
+| 5B | "BAD NEXT" |
+| 63 | "STOPPED AT " |
+| 6E | "*** " |
+| 72 | " ERR.\n" |
+| 77 | ">255" |
+| 7B | "RANGE" |
+| 80 | "DIM" |
+| 83 | "STR OVFL" |
+| 8B | "\\\n" |
+| 8D | "RETYPE LINE\n" |
+| 99 | "?" |
+
+
 ## Credits and Recognition
 
 First and most obvious, thanks to Steve 'Woz' Wozniak for creating Apple 1 Integer BASIC in the first place.
