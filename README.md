@@ -103,6 +103,41 @@ So there the value -32,768 was not excluded on a whim. The limit of -32,767 is t
 | 99 | "?" |
 
 
+## A humourous tale of woe...
+
+I originally started digging into Integer BASIC when I decided I would like to port it to the PAL-1, a clone of the KIM-1 (one of the first single board computers available).
+
+I started with the source and changed the I/O routines, but typing anything at the command line returned an error message. After some thinking, I decided that I might have broken the syntax tables by shifting locations around. If something now crossed a page boundary, that could be problematic for the NMOS version of the 6502 processor.
+
+After further thinking I decided to start with a freshly assembled version and then explicitly patch it to handle I/O. I did this one weekend morning and found that things started to work a bit better than before. Or, at least, not everything I typed threw an error message. But things still did not seem to work proprly.
+
+I took a break for lunch and, when I returned, found I could not duplicate any of my earlier success. Frustrated, I worked at it for a bit longer but eventually packed it in for the day.
+
+But that really bothered me. I couldn't understand how it had partially worked for a while and then, with not changes to the code, suddenly stopped working at all.
+
+Then I remembered that I had started from scratch with the original source code when I decided to use "patches" in a separate source file. That file had the "normal" address for Integer BASIC ($E000). I had assembled it and started to load it into the PAL-1 before I noticed that I had not changed the address to $8000 where I had been working with things in RAM. I made the change, reassembled it, and reloaded it.
+
+And things 'sort of' worked...
+
+I tinkered with it for a while and seemed to be making progress until I broke for lunch.
+
+When I returned, I was back to having anything I typed at the prompth immediately throw an error message!
+
+What had changed? Why did things break?
+
+In the middle of the night, it finally struck me. What happened only makes sense if you know a bit about the original KIM-1.
+
+The original KIM-1 only decoded thinkgs to a 2K block. This was typically viewed as being from $0000 to $1FFF and included RAM, I/O, and ROM. Anyone familar with the 6502 knows that things like the reset vectors go up in the top of memory, but on the KIM this same 2K block "repeats" throughout the memory map. Even the more fully decoded systems like the PAL-1 have that 2K mirrored at the bottom ($0000-$1FFF) and the top ($E000-$FFFF) with everything in between more fully decoded.
+
+So when I accidently assembled and uploade Integer BASIC at $E000, it actualy ended up going into both $0000 and $E000 on the PAL-1.
+
+It set there in memory and was accessible by the static pointers to $Exxx in the code even when I moved the code down to $8000. The bottom three pages were corrupted because that is memory eWoz and Integer BASIC use. And things started getting corrupted from $EFFF down because Integer BASIC stores programs from the top down (and is designed with $0FFF as the top by default). But enough of the tables and subroutines remained in place to make things work more than they would have otherwise.
+
+Things seemed to almost work and then I powered the system off for lunch. After lunch, things that had been working no longer worked because the fragments of code that were previously appearing up in $Exxx had been wiped out.
+
+Although it didn't get me closer to really having Integer BASIC running on the PAL-1, it did make me feel better to understand what had gone wrong.
+
+
 ## Credits and Recognition
 
 First and most obvious, thanks to Steve 'Woz' Wozniak for creating Apple 1 Integer BASIC in the first place.
