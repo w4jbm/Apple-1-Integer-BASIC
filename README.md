@@ -138,6 +138,69 @@ Things seemed to almost work and then I powered the system off for lunch. After 
 Although it didn't get me closer to really having Integer BASIC running on the PAL-1, it did make me feel better to understand what had gone wrong.
 
 
+## Honey I Broke the Assembler
+
+I have used 64TASS as my assembler for 6502 work for years and been very, very happy with it.
+
+After some tweaks to the code, I had A1B to the point where I could type and even run a program--but the listing was always garbled. I spent an entire weekend going through the code of the LIST portion of A1B looking for what might be broke. Several times I restarted tinkering with the code from scratch to make sure it wasn't something I was doing.
+
+I always troubleshoot from the assembler list file... Except this time.
+
+Because I was adding a lot of comments to the code as I would try to decipher what lines and segments of code did, I was looking at the source file.
+
+Finally, in frustration, I decided I would compare the code byte by byte with a hex dump of the ROM. My assumption was that I was messing something up--maybe forcing the wrong address mode or something of that sort.
+
+A quick scan of the assembler output listing stopped me in my tracks. Here is what jumped out at me:
+
+```
+.842b	dd 00 02	        CMP     buffer,X
+.842e	b0 fa		        BCS     Le42a
+.8430	b1 fe		        LDA     (synpag),Y
+.8432	29 3f		        AND     #$3F
+.8434	4a		        LSR
+.8435	d0 b6		        BNE     Le3ed
+.8437	bd 00 02	        LDA     buffer,X
+.843a	b0 06		        BCS     Le442
+.81
+.844d	29 80		        AND     #$80
+.844f	c9 20		        CMP     #$20
+.8451	f0 7a		        BEQ     Le4cd
+.8453	b5 a8		        LDA     txtndxstk,X
+.8455	85 c8		        STA     text_index
+.8457	b5 d1		        LDA     tokndxstk,X
+```
+Lookin at the source, I couldn't see anything wrong:
+```
+        CMP     buffer,X
+        BCS     Le42a
+        LDA     (synpag),Y
+        AND     #$3F
+        LSR
+        BNE     Le3ed
+        LDA     buffer,X
+        BCS     Le442
+        ADC     #$3F
+        CMP     #$1A
+        BCC     Le4b1
+Le442:  ADC     #$4F
+        CMP     #$0A
+        BCC     Le4b1
+Le448:  LDX     synstkdx
+Le44a:  INY
+        LDA     (synpag),Y
+        AND     #$80
+        CMP     #$20
+        BEQ     Le4cd
+        LDA     txtndxstk,X
+        STA     text_index
+        LDA     tokndxstk,X
+        STA     token_index
+```
+I have not had a chance to try to dig into what was causing this, but using CA65 (which is what Jeff Tranter was using) fixed the issue and everything started working.
+
+I would still like to figure out what is happening here, but just haven't had any spare cycles to spend on it.
+
+
 ## Credits and Recognition
 
 First and most obvious, thanks to Steve 'Woz' Wozniak for creating Apple 1 Integer BASIC in the first place.
