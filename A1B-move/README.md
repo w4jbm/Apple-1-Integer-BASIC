@@ -2,6 +2,8 @@
 
 This is a pair of simple (and far from optimized) Python tools that help you quickly and consistently move Apple 1 Integer BASIC (A1B) from it's normal location at $E000.
 
+At the extremes of relocating approaches, you could fix the source code to automate much of this based on the origin address or, at the other extreme, manually edit things and hope you don't miss anything. This automated tool is designed to offer a middle-ground compromise, mainly because relocating the code isn't something you will likely need to do on a regular basis. With this tool it becomes a five minute process (at most) to facilitate a relocation.
+
 The source should be named `a1basic.in` and you should first run `./a1bmoveg.py`. This will generate a file named `a1basic.mod` that lists the line numbers of all references to $Exxx.
 
 The .mod file can be editted to comment out the lines you do not want to change. This can be a bit of trial and error (but not too much if you study the code). The example in this repository has the appropriate lines commented out.
