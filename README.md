@@ -72,7 +72,7 @@ Here we get a glimpse of what is going on. There is no error in line 30 when we 
 
 If we delete line 35 (the print statement) and run it again, we can see that the value of -32,768 is calculated and there is no error message.
 
-So there the value -32,768 was not excluded on a whim. The limit of -32,767 is the result of how the unary negation operator interacts with the magnitude of the number in certain situations.
+So the value -32,768 was not excluded on a whim. The limit of -32,767 is the result of how the unary negation operator interacts with the magnitude of the number in certain situations.
 
 
 ## Error Messages
