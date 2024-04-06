@@ -1,7 +1,7 @@
 # Apple-1-Integer-BASIC
 I am currently working on a project to port the original version of Apple Integer BASIC to the PAL-1, a clone of the KIM-1 single-board computer. In the process, I have learned a lot about the construction and working of Integer BASIC and wanted to captures some of that for my own reference down the road as well as anyone else who is interested.
 
-As of May 2021, this is still a work in progress.
+The port to the PAL-1 for inclusion in the new EPROM expansion card was completed in mid-2021. A number of people have used the ported version and so far I am not aware of any problems being encountered. I hope to port this to other 6502 systems when I have some time.
 
 
 ## Approach to Porting
