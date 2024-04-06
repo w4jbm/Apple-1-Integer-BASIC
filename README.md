@@ -55,7 +55,7 @@ The bottom line is that this is an incredibly compact, interdependent piece of c
 
 I have seen comments about the fact that -32767 is the largest negative value Integer BASIC allows, while -32768 can actually be stored in 16 bits.
 
-The is actually a reason for the limit. (And it has nothing to do with wanting to only have one error message referencing 32767 as I've seen speculated in place.)
+There is actually a reason for the limit. (And it has nothing to do with wanting to only have one error message referencing 32767 as I've seen speculated in place.)
 
 If you have a statement such as:
 
