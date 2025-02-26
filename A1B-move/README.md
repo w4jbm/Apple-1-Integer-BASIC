@@ -16,7 +16,7 @@ There is a reference in line 761 where a `LDA #$76` is used followed by an `ROL`
 
 At this point, you should have a source file that can be assembled and work from the selected location in memory.
 
-I know you are safe moving to multiples of $2000. (I have working relations to $8000 and $A000.) Because of some of the tricks used there would definatly be problems not relocating to a page boundary. Can you select any page boundary? I'm not sure and would have to do some testing before I could say.
+I know you are safe moving to multiples of $2000. (I have working relocations to $8000 and $A000.) Because of some of the tricks used there would definatly be problems relocating anything that is not a page boundary. Can you select any page boundary? I'm not sure and would have to do some testing before I could say. (If you try successfully or unsuccessfully to relocate to something that is not a multiple of $2000, I would be interested in hearing your results!)
 
 
 ## The fine print...
